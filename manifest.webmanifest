@@ -2,14 +2,15 @@
   "name": "Fica pro Café",
   "short_name": "Fica pro Café",
   "description": "Um deck de perguntas pra puxar boa conversa em qualquer mesa.",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#F3E6D8",
   "theme_color": "#60321F",
   "lang": "pt-BR",
   "icons": [
-    { "src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "/assets/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "./assets/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

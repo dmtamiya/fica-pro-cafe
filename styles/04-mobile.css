@@ -37,6 +37,17 @@
     .desktop-only {
         display: none !important;
     }
+
+    /* Bloqueia scroll vertical da página principal (cards) no mobile.
+       O conteúdo cabe na viewport e o gesto de swipe pra trocar pergunta
+       conflita com scroll. About continua scrollável (não tem .stage). */
+    body:has(.stage) {
+        overflow: hidden;
+        height: 100vh;
+        height: 100dvh;
+        overscroll-behavior: none;
+    }
+
     .app-header {
         padding: env(safe-area-inset-top, 1.5rem) 1rem 0;
         padding-top: max(1.5rem, env(safe-area-inset-top));
@@ -177,14 +188,7 @@
         line-height: 1.4;
     }
     .drag-hint {
-        display: block !important;
-        font-family: var(--font-default);
-        font-style: italic;
-        font-size: .8rem;
-        color: var(--footer-text);
-        text-align: center;
-        margin: 1rem 0 0;
-        padding: 0 1rem;
+        display: none !important;
     }
     .drag-bubble {
         display: block !important;

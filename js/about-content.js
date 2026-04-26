@@ -35,7 +35,18 @@ export const C = {
 
 export const R = {
   pt: [
-    { ver:'v 1.0.0', title:'A primeira xícara', date:'27 abr 2026', author:'Daniela Tamiya',
+    { ver:'v 1.0.1', title:'Pequenos ajustes', date:'26 abr 2026', author:'Daniela Tamiya',
+      summary:'Correções de polimento depois de testar a v1.0.0 no celular.',
+      features:[],
+      fixes:[
+        'Ícone instalado na tela inicial agora preenche todo o espaço',
+        'Corrigido erro 404 ao abrir o app pelo ícone da tela inicial',
+        'Barra de status do celular agora acompanha o tema atual',
+        'Removido scroll incômodo na página dos cartões no mobile',
+        'Removido texto "Dica: arraste..." (o balão de instrução já cumpre essa função)',
+        'Texto de compartilhamento ficou mais bonito, com a pergunta destacada entre aspas'
+      ] },
+    { ver:'v 1.0.0', title:'A primeira xícara', date:'26 abr 2026', author:'Daniela Tamiya',
       summary:'Primeiro lançamento público. 273 perguntas em 3 categorias, dois temas, dois idiomas, e interface amigável.',
       features:[
         '273 perguntas curadas em 3 categorias: Profundas, Divertidas e Sobre o grupo',
@@ -53,7 +64,18 @@ export const R = {
       fixes:[] }
   ],
   en: [
-    { ver:'v 1.0.0', title:'The first cup', date:'Apr 27 2026', author:'Daniela Tamiya',
+    { ver:'v 1.0.1', title:'Small adjustments', date:'Apr 26 2026', author:'Daniela Tamiya',
+      summary:'Polish fixes after testing v1.0.0 on mobile.',
+      features:[],
+      fixes:[
+        'Home screen icon now fills the entire space',
+        'Fixed 404 error when opening the app from the home screen icon',
+        'Device status bar now follows the current theme',
+        'Removed unwanted scroll on the cards page on mobile',
+        'Removed the "Tip: swipe..." text (the speech bubble already does that job)',
+        'Share text is now nicer, with the question highlighted in quotes'
+      ] },
+    { ver:'v 1.0.0', title:'The first cup', date:'Apr 26 2026', author:'Daniela Tamiya',
       summary:'First public release. 273 questions in 3 categories, two themes, two languages, and amicable interface.',
       features:[
         '273 curated questions in 3 categories: Deep, Fun, and About the group',

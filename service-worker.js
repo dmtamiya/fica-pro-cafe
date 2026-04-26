@@ -1,4 +1,4 @@
-const CACHE = 'qna-pwa-v2';
+const CACHE = 'qna-pwa-v3';
 const ASSETS = [
   '/',
   '/index.html',

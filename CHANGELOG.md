@@ -27,7 +27,22 @@ Mudanças que ainda não foram publicadas em uma versão oficial.
 
 ---
 
-## [1.0.0] — 2026-04-27
+## [1.0.1] — 2026-04-26
+
+### Corrigido
+- Ícone PWA agora preenche todo o espaço na tela inicial em vez de aparecer como círculo dentro do quadrado arredondado
+- 404 ao abrir o app instalado pela tela inicial (caminhos absolutos no manifest eram incompatíveis com GitHub Pages)
+- Status bar do iPhone agora acompanha a cor do tema atual e a cor do menu de configurações quando aberto
+- Bug em que a status bar mantinha a cor do tema anterior por alguns segundos ao trocar de tema
+- Scroll vertical indevido na página principal no mobile, que conflitava com o gesto de arrastar pra trocar pergunta
+
+### Modificado
+- Texto compartilhado mais limpo: pergunta entre aspas tipográficas com quebras de linha pra dar destaque visual
+- Removido texto "Dica: arraste o cartão..." no mobile (redundante com o balão "Psiu!")
+
+---
+
+## [1.0.0] — 2026-04-26
 
 ### Adicionado
 - Lançamento inicial 🎉
@@ -43,5 +58,6 @@ Mudanças que ainda não foram publicadas em uma versão oficial.
 
 ---
 
-[Não-publicado]: https://github.com/dmtamiya/fica-pro-cafe/compare/v1.0.0...HEAD
+[Não-publicado]: https://github.com/dmtamiya/fica-pro-cafe/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/dmtamiya/fica-pro-cafe/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/dmtamiya/fica-pro-cafe/releases/tag/v1.0.0

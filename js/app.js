@@ -20,7 +20,7 @@ import { THEMES, FONT_SIZES } from './config.js';
 import { DECKS } from './decks.js';
 import { attachFeedbackHandler, VERSION } from './feedback.js';
 
-const APP_URL = 'https://dmtamiya.github.io/fica-pro-cafe/';
+const APP_URL = '';
 
 const DEFAULTS = {
   lang: 'pt',
@@ -99,10 +99,28 @@ function save() {
   }));
 }
 
-function updateThemeBarColor(id) {
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (!meta) return;
-  meta.setAttribute('content', THEME_BAR_COLORS[id] || THEME_BAR_COLORS['default']);
+// Cor da barra de status do dispositivo (theme-color do <meta>) por tema base.
+// Quando um painel mobile (config/about/sair) está aberto, sobrescrevemos
+// dinamicamente com a cor do painel pra parecer "seamless" com o status bar
+// do iOS (em vez de mostrar um corte entre o painel cinza e a barra clara).
+const PANEL_BAR_COLORS = {
+  'default':                  '#788990',  // --panel-bg do tema padrão
+  'theme-noite-aconchegante': '#553e30',  // --panel-bg do tema noite
+};
+
+function updateThemeBarColor(themeId, panelOpen) {
+  const palette = panelOpen ? PANEL_BAR_COLORS : THEME_BAR_COLORS;
+  const color = palette[themeId] || palette['default'];
+
+  // O iOS Safari cacheia o valor da <meta name="theme-color"> e nem sempre
+  // detecta mudança via setAttribute. Pra forçar uma releitura, removemos
+  // a tag antiga e criamos uma nova com o valor atualizado.
+  const old = document.querySelector('meta[name="theme-color"]');
+  if (old) old.remove();
+  const meta = document.createElement('meta');
+  meta.name = 'theme-color';
+  meta.content = color;
+  document.head.appendChild(meta);
 }
 
 function setTheme(id) {
@@ -110,8 +128,14 @@ function setTheme(id) {
   html.classList.remove(...THEMES.map(t => t.id).filter(Boolean));
   if (id !== 'default') html.classList.add(id);
   state.theme = id;
-  updateThemeBarColor(id);
+  updateThemeBarColor(id, anyPanelOpen());
   save();
+}
+
+// Algum painel mobile (config/about/sair) está aberto?
+function anyPanelOpen() {
+  return (els.configPanel && els.configPanel.getAttribute('aria-hidden') === 'false') ||
+         (els.aboutPanel  && els.aboutPanel.getAttribute('aria-hidden')  === 'false');
 }
 
 function setFontSize(id) {
@@ -282,9 +306,12 @@ function copyQuestion() {
 }
 
 function buildShareText(question) {
-  if (!APP_URL) return question;
+  // Pergunta envolvida em aspas tipográficas pra dar destaque visual
+  // (funciona em qualquer canal de mensagem — WhatsApp, SMS, Notes, etc).
+  const quoted = '\u201C' + question + '\u201D';
+  if (!APP_URL) return quoted;
   const prefix = t('shareText', state.lang);
-  return prefix + ' ' + APP_URL + '!\n' + question;
+  return prefix + '\n\n' + quoted + '\n\n' + APP_URL;
 }
 
 window.__buildShareText = buildShareText;
@@ -345,11 +372,15 @@ function openPanel(panel, btn) {
   closeAllPanels();
   panel.setAttribute('aria-hidden', 'false');
   if (btn) btn.classList.add('active-menu');
+  // Atualiza barra de status do dispositivo pra cor do painel
+  updateThemeBarColor(state.theme, true);
 }
 
 function closePanel(panel, btn) {
   panel.setAttribute('aria-hidden', 'true');
   if (btn) btn.classList.remove('active-menu');
+  // Volta pra cor do tema base se nenhum painel ainda estiver aberto
+  if (!anyPanelOpen()) updateThemeBarColor(state.theme, false);
 }
 
 function togglePanel(panel, btn) {
