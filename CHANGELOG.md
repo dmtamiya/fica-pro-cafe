@@ -27,6 +27,26 @@ Mudanças que ainda não foram publicadas em uma versão oficial.
 
 ---
 
+## [1.0.2] — 2026-04-26
+
+### Adicionado
+- Animação estilo Tinder no swipe mobile: o cartão sai pelo lado quando arrastado com força e o próximo entra do oposto
+
+### Corrigido
+- Botão "Próximo" deixava de mostrar estado de hover persistente no mobile depois de clicado
+- Versão no drawer agora reflete a versão real do app (estava aparentando estar travada porque o número não mudava entre releases)
+- Header da página About no mobile fica fixo no topo enquanto o conteúdo scrolla
+- Scroll vertical no mobile travado de verdade na página dos cartões (versão anterior não estava pegando em todos os contextos do iOS Safari)
+- Status bar do iPhone agora muda instantaneamente ao trocar tema (estava com atraso visível)
+- Cor da status bar copia a cor do menu de configurações enquanto ele está aberto
+
+### Modificado
+- Landing com título e botão CTA reposicionados mais pra cima
+- Bloco da pergunta (categoria + cartão + próximo) reposicionado mais pra cima
+- Texto compartilhado agora inclui o link do app
+
+---
+
 ## [1.0.1] — 2026-04-26
 
 ### Corrigido
@@ -58,6 +78,7 @@ Mudanças que ainda não foram publicadas em uma versão oficial.
 
 ---
 
-[Não-publicado]: https://github.com/dmtamiya/fica-pro-cafe/compare/v1.0.1...HEAD
+[Não-publicado]: https://github.com/dmtamiya/fica-pro-cafe/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/dmtamiya/fica-pro-cafe/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/dmtamiya/fica-pro-cafe/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/dmtamiya/fica-pro-cafe/releases/tag/v1.0.0

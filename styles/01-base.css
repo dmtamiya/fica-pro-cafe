@@ -223,6 +223,7 @@
 
 html {
     font-size: calc(16px * var(--font-scale));
+    background: var(--bg);
 }
 
 html,
@@ -279,4 +280,9 @@ body {
 .theme-loaded .panel-bg-wrap {
     transition: background-color var(--dur-med) var(--ease-smooth),
                 color var(--dur-med) var(--ease-smooth);
+}
+
+html.panel-active,
+html.panel-active body {
+    background: var(--panel-bg);
 }

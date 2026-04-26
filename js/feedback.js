@@ -18,7 +18,7 @@
  * (silencioso). O form continua funcionando, só falta automação naquele campo.
  */
 
-export const VERSION = '1.0.0';
+export const VERSION = '1.0.2';
 
 const DEFAULTS = { lang: 'pt', theme: 'default' };
 

@@ -20,7 +20,7 @@ import { THEMES, FONT_SIZES } from './config.js';
 import { DECKS } from './decks.js';
 import { attachFeedbackHandler, VERSION } from './feedback.js';
 
-const APP_URL = '';
+const APP_URL = 'https://dmtamiya.github.io/fica-pro-cafe/';
 
 const DEFAULTS = {
   lang: 'pt',
@@ -99,22 +99,15 @@ function save() {
   }));
 }
 
-// Cor da barra de status do dispositivo (theme-color do <meta>) por tema base.
-// Quando um painel mobile (config/about/sair) está aberto, sobrescrevemos
-// dinamicamente com a cor do painel pra parecer "seamless" com o status bar
-// do iOS (em vez de mostrar um corte entre o painel cinza e a barra clara).
 const PANEL_BAR_COLORS = {
-  'default':                  '#788990',  // --panel-bg do tema padrão
-  'theme-noite-aconchegante': '#553e30',  // --panel-bg do tema noite
+  'default':                  '#788990', 
+  'theme-noite-aconchegante': '#553e30',  
 };
 
 function updateThemeBarColor(themeId, panelOpen) {
   const palette = panelOpen ? PANEL_BAR_COLORS : THEME_BAR_COLORS;
   const color = palette[themeId] || palette['default'];
 
-  // O iOS Safari cacheia o valor da <meta name="theme-color"> e nem sempre
-  // detecta mudança via setAttribute. Pra forçar uma releitura, removemos
-  // a tag antiga e criamos uma nova com o valor atualizado.
   const old = document.querySelector('meta[name="theme-color"]');
   if (old) old.remove();
   const meta = document.createElement('meta');
@@ -132,7 +125,6 @@ function setTheme(id) {
   save();
 }
 
-// Algum painel mobile (config/about/sair) está aberto?
 function anyPanelOpen() {
   return (els.configPanel && els.configPanel.getAttribute('aria-hidden') === 'false') ||
          (els.aboutPanel  && els.aboutPanel.getAttribute('aria-hidden')  === 'false');
@@ -234,6 +226,39 @@ function nextQuestion() {
   }, 180);
 }
 
+function swipeOutAndNext(direction) {
+  closeCat();
+  clearCopied();
+  if (state.queue.length === 0) buildMapAndQueue();
+
+  const qid = state.queue.pop();
+  const q = state.map.get(qid);
+  if (!q) return;
+
+  const pillText = qid.toUpperCase();
+  const sign = direction < 0 ? -1 : 1;
+
+  els.card.style.transition = 'transform 280ms cubic-bezier(0.4, 0, 0.2, 1), opacity 280ms';
+  els.card.style.transform = `translateX(${sign * 130}%) rotate(${sign * 18}deg)`;
+  els.card.style.opacity = '0';
+
+  setTimeout(() => {
+    els.question.textContent = q.text;
+    els.questionPill.textContent = pillText;
+    els.card.style.transition = 'none';
+    els.card.style.transform = `translateX(${-sign * 80}%) rotate(${-sign * 8}deg)`;
+    els.card.style.opacity = '0';
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        els.card.style.transition = 'transform 320ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms';
+        els.card.style.transform = '';
+        els.card.style.opacity = '';
+      });
+    });
+  }, 280);
+}
+
 function applyI18n() {
   document.querySelectorAll('[data-i18n]').forEach(n => {
     n.textContent = t(n.getAttribute('data-i18n'), state.lang);
@@ -306,8 +331,6 @@ function copyQuestion() {
 }
 
 function buildShareText(question) {
-  // Pergunta envolvida em aspas tipográficas pra dar destaque visual
-  // (funciona em qualquer canal de mensagem — WhatsApp, SMS, Notes, etc).
   const quoted = '\u201C' + question + '\u201D';
   if (!APP_URL) return quoted;
   const prefix = t('shareText', state.lang);
@@ -372,15 +395,17 @@ function openPanel(panel, btn) {
   closeAllPanels();
   panel.setAttribute('aria-hidden', 'false');
   if (btn) btn.classList.add('active-menu');
-  // Atualiza barra de status do dispositivo pra cor do painel
+  document.documentElement.classList.add('panel-active');
   updateThemeBarColor(state.theme, true);
 }
 
 function closePanel(panel, btn) {
   panel.setAttribute('aria-hidden', 'true');
   if (btn) btn.classList.remove('active-menu');
-  // Volta pra cor do tema base se nenhum painel ainda estiver aberto
-  if (!anyPanelOpen()) updateThemeBarColor(state.theme, false);
+  if (!anyPanelOpen()) {
+    document.documentElement.classList.remove('panel-active');
+    updateThemeBarColor(state.theme, false);
+  }
 }
 
 function togglePanel(panel, btn) {
@@ -394,10 +419,13 @@ function closeAllPanels() {
 }
 
 function attachTouch() {
+  const SWIPE_THRESHOLD = 80;
+
   els.card.addEventListener('touchstart', e => {
     if (state.catOpen) return;
     const t = e.touches[0];
-    state.touch = { x: t.clientX, y: t.clientY, moved: false };
+    state.touch = { x: t.clientX, y: t.clientY, dx: 0, moved: false };
+    els.card.style.transition = 'none';
   }, { passive: true });
 
   els.card.addEventListener('touchmove', e => {
@@ -406,6 +434,7 @@ function attachTouch() {
     const dx = t.clientX - state.touch.x;
     const dy = t.clientY - state.touch.y;
     if (Math.hypot(dx, dy) > 6) state.touch.moved = true;
+    state.touch.dx = dx;
     els.card.style.transform = `translate(${dx * .2}px, ${dy * .2}px) rotate(${dx * .02}deg)`;
     els.card.style.opacity = String(Math.max(.65, 1 - Math.abs(dx) / 600));
   }, { passive: true });
@@ -414,9 +443,15 @@ function attachTouch() {
     if (!state.touch) return;
     const t = state.touch;
     state.touch = null;
+
+    if (t.moved && Math.abs(t.dx) > SWIPE_THRESHOLD) {
+      swipeOutAndNext(t.dx);
+      return;
+    }
+
+    els.card.style.transition = 'transform 240ms cubic-bezier(0.22, 1, 0.36, 1), opacity 240ms';
     els.card.style.transform = '';
     els.card.style.opacity = '';
-    if (t.moved) nextQuestion();
   }
 
   els.card.addEventListener('touchend',    end, { passive: true });
@@ -453,7 +488,10 @@ function initUI() {
   attachFeedbackHandler('feedbackLinkMobile');
   attachFeedbackHandler('feedbackLinkAboutMobile');
 
-  els.nextBtn.addEventListener('click',    nextQuestion);
+  els.nextBtn.addEventListener('click', e => {
+    nextQuestion();
+    e.currentTarget.blur();
+  });
   els.copyBtn.addEventListener('click',    copyQuestion);
   els.sairBtn.addEventListener('click',    showLanding);
   els.startBtn.addEventListener('click',   hideLanding);

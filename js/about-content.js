@@ -35,6 +35,19 @@ export const C = {
 
 export const R = {
   pt: [
+    { ver:'v 1.0.2', title:'Polimentos no celular', date:'26 abr 2026', author:'Daniela Tamiya',
+      summary:'Mais ajustes finos depois de testes no iPhone — animação de swipe, layout, header fixo no Sobre.',
+      features:[
+        'Animação ao arrastar o cartão no celular: ele sai pelo lado e o próximo entra do oposto'
+      ],
+      fixes:[
+        'Botão "Próximo" não fica mais com aparência de selecionado depois de clicado no celular',
+        'Número da versão no menu de configurações agora atualiza certo a cada release',
+        'Cabeçalho da página Sobre no celular fica fixo no topo enquanto o resto rola',
+        'Scroll vertical na página dos cartões agora trava de verdade no celular (versão anterior tinha falha em alguns casos)',
+        'Barra superior do iPhone troca de cor instantaneamente ao mudar tema (antes ficava atrasada)',
+        'Barra superior do iPhone copia a cor do menu de configurações enquanto ele está aberto'
+      ] },
     { ver:'v 1.0.1', title:'Pequenos ajustes', date:'26 abr 2026', author:'Daniela Tamiya',
       summary:'Correções de polimento depois de testar a v1.0.0 no celular.',
       features:[],
@@ -64,6 +77,19 @@ export const R = {
       fixes:[] }
   ],
   en: [
+    { ver:'v 1.0.2', title:'Mobile polish', date:'Apr 26 2026', author:'Daniela Tamiya',
+      summary:'More fine-tuning after iPhone testing — swipe animation, layout, fixed About header.',
+      features:[
+        'Swipe animation on mobile: the card flies off and the next one comes in from the opposite side'
+      ],
+      fixes:[
+        'The "Next" button no longer looks selected after being tapped on mobile',
+        'Version number in the settings drawer now updates correctly with each release',
+        'About page header is now pinned to the top on mobile while the rest scrolls',
+        'Vertical scroll on the cards page is now properly locked on mobile (previous version had edge cases on iOS)',
+        'iPhone status bar color now updates instantly when switching themes (was lagging before)',
+        'iPhone status bar copies the settings drawer color while it is open'
+      ] },
     { ver:'v 1.0.1', title:'Small adjustments', date:'Apr 26 2026', author:'Daniela Tamiya',
       summary:'Polish fixes after testing v1.0.0 on mobile.',
       features:[],
