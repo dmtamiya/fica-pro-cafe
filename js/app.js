@@ -20,7 +20,7 @@ import { THEMES, FONT_SIZES } from './config.js';
 import { DECKS } from './decks.js';
 import { attachFeedbackHandler, VERSION } from './feedback.js';
 
-const APP_URL = '';
+const APP_URL = 'https://dmtamiya.github.io/fica-pro-cafe/';
 
 const DEFAULTS = {
   lang: 'pt',
