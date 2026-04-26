@@ -1,0 +1,464 @@
+/**
+ * 02-layout.css — Estrutura geral da página
+ *
+ * O que tem aqui:
+ *   - Landing (tela de boas-vindas inicial)
+ *   - Header (.app-header) e seus botões (Sair, Sobre, Feedback, Config)
+ *   - Main (.app-main) e o palco principal (.stage)
+ *   - Cartão de pergunta (.card) e overlay de categorias (.cat-overlay)
+ *   - Botão de próxima pergunta (.next-btn)
+ *   - Footer (.app-footer)
+ *
+ * Esta camada define a estrutura macro do app: onde cada coisa fica e
+ * como o layout flui. Não inclui peças reutilizáveis (drawer, painéis,
+ * language-picker) — essas estão em 03-components.css.
+ *
+ * Os estilos aqui usam as variáveis definidas em 01-base.css.
+ */
+
+.landing {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--landing-bg);
+    transition: var(--transition-default);
+}
+.landing.hidden,
+html.has-visited .landing {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+html.has-visited .landing {
+    transition: none;
+}
+.landing-nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.5rem 2.5rem;
+}
+.landing-nav a {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-emphasis);
+    font-size: 1rem;
+    color: var(--landing-text);
+    text-decoration: none;
+    transition: var(--transition-default);
+}
+.landing-nav a:hover {
+    color: var(--landing-text-hover);
+}
+.landing-title {
+    font-family: var(--font-emphasis);
+    font-size: clamp(2.8rem,5vw,4.2rem);
+    color: var(--landing-text);
+    margin: 0 0 2.5rem;
+    text-align: center;
+}
+.landing-cta {
+    padding: 1.1rem 3.5rem;
+    background: var(--landing-button-bg);
+    color: var(--landing-button-text);
+    font-family: var(--font-emphasis);
+    font-size: 1.15rem;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--shadow-color-landing);
+    transition: var(--transition-default);
+}
+.landing-cta:hover {
+    transform: translate(-1px,-1px);
+    box-shadow: 6px 6px 0 var(--shadow-color-landing);
+}
+.landing-cta:active {
+    transform: translate(1px,1px);
+    box-shadow: 2px 2px 0 var(--shadow-color-landing);
+}
+.landing .language-picker__button {
+    color: var(--landing-text);
+}
+.landing .language-picker__button:hover {
+    color: var(--neutral-light-2);
+}
+.landing .language-picker__dropdown {
+    background: var(--landing-bg);
+    box-shadow: 4px 4px 0  var(--shadow-color-landing);
+}
+.landing .language-picker__item {
+    color: var(--landing-text);
+}
+.landing .language-picker__item:hover {
+    background: var(--neutral-light-transparent-30);
+}
+.landing .language-picker__item[aria-selected="true"] {
+    background: var(--neutral-light-transparent-50);
+    color: var(--neutral-dark-2);
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: 74px;
+    padding: 0 2.5rem;
+    background: var(--navbar-bg);
+    font-family: var(--font-emphasis);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--navbar-text);
+    font-family: var(--font-emphasis);
+    font-size: .9rem;
+    transition: var(--transition-default);
+    white-space: nowrap;
+}
+button.header-left {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+button.header-left:hover {
+    color: var(--navbar-accent);
+}
+.header-left svg {
+    width: 14px;
+    height: 14px;
+}
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.sair-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-emphasis);
+    font-size: .9rem;
+    color: var(--navbar-text);
+    padding: 0;
+    transition: var(--transition-default);
+}
+.sair-btn:hover {
+    color: var(--navbar-accent);
+}
+.sair-btn svg {
+    width: 16px;
+    height: 16px;
+}
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-emphasis);
+    font-size: .9rem;
+    color: var(--navbar-text);
+    padding: 6px 10px;
+    text-decoration: none;
+    transition: var(--transition-default);
+}
+.action-btn:hover {
+    color: var(--navbar-accent);
+}
+.action-btn .navIcon {
+    width: 12px;
+    height: 12px;
+    transition: var(--transition-default);
+}
+.action-btn.active {
+    color: var(--navbar-accent);
+    font-weight: 500;
+    text-decoration: none;
+}
+.action-btn.active-menu {
+    color: var(--navbar-accent);
+}
+.action-btn.active-menu .navIcon {
+    transform: rotate(90deg);
+}
+
+.app-main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding: clamp(2rem,5rem,7rem) 2.5rem 0;
+}
+
+.stage {
+    position: relative;
+    width: min(700px,56vw);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: 24px;
+    row-gap: 0;
+    align-items: center;
+}
+.stage > .cat-trigger-wrap {
+    grid-column: 1;
+    grid-row: 1;
+}
+.stage > .card {
+    grid-column: 1;
+    grid-row: 2;
+}
+.stage > .cat-overlay {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+}
+.stage > .next-btn {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: center;
+}
+
+.cat-trigger-wrap {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 32px;
+}
+.cat-label {
+    font-family: var(--font-default);
+    font-size: 1rem;
+    color: var(--cat-label);
+    font-weight: 500;
+}
+.cat-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-emphasis);
+    font-size: 1.2rem;
+    color: var(--cat-trigger);
+    padding: 2px 4px;
+    transition: var(--transition-default);
+}
+.cat-trigger:hover {
+    color: var(--cat-trigger-hover);
+}
+.cat-chevron {
+    width: 20px;
+    height: 20px;
+    transition: var(--transition-default);
+}
+body.cat-open .cat-chevron {
+    transform: rotate(90deg);
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(2rem,3.5vw,3rem) clamp(2.5rem,5vw,4rem);
+    min-height: 320px;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-default);
+    touch-action: pan-y;
+    z-index: 1;
+}
+.card-number {
+    position: absolute;
+    top: clamp(1.2rem,2vw,1.8rem);
+    left: 50%;
+    transform: translateX(-50%);
+}
+.q-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    height: 32px;
+    border-radius: 999px;
+    padding: 0 7px;
+    font-family: var(--font-emphasis);
+    font-size: 1.1rem;
+    color: var(--card-pill-text);
+    background: var(--card-pill-bg);
+    transition: var(--transition-default);
+}
+.question {
+    font-family: var(--font-default);
+    font-weight: 400;
+    color: var(--card-text);
+    font-size: clamp(1.3rem,2.2vw,1.85rem);
+    line-height: 1.55;
+    letter-spacing: .01em;
+    padding: .5rem 0;
+    margin-top: 1.2rem;
+}
+
+.copy-btn {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--card-copy-icon);
+    opacity: 1;
+    transition: var(--transition-default);
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.copy-btn:hover {
+    color: var(--card-copy-icon-hover);
+}
+.copy-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    opacity: 1;
+    transition: var(--transition-default);
+}
+.copy-label {
+    font-family: var(--font-default);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--card-text);
+    white-space: nowrap;
+    opacity: 0;
+    position: absolute;
+    right: 4px;
+    transition: var(--transition-default);
+}
+.copy-btn.copied{opacity:1}
+.copy-btn.copied .copy-icon{opacity:0}
+.copy-btn.copied .copy-label{opacity:1}
+
+.cat-overlay {
+    margin: -64px -24px -24px;
+    background: var(--cat-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-default);
+}
+body.cat-open .cat-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+.cat-overlay__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 154px 50px 50px 50px;
+}
+.cat-overlay__list button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-default);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--cat-button-text);
+    opacity: 1;
+    width: 20rem;
+    padding: .55rem;
+    transition: var(--transition-default);
+}
+.cat-overlay__list button:hover {
+    opacity: 1;
+    color: var(--cat-button-text-hover);
+    background-color: var(--cat-button-bg-hover);
+}
+.cat-overlay__list button.active {
+    opacity: 1;
+    background-color: var(--cat-button-bg-active);
+    color: var(--cat-button-text-active);
+}
+
+.next-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--next-button);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: var(--transition-default);
+}
+.next-btn svg {
+    width: clamp(36px,3.5vw,56px);
+    height: auto;
+}
+.next-btn:hover {
+    color: var(--next-button-hover);
+    transform: translateX(5px);
+}
+.hint {
+    color: var(--next-button);
+    font-size: .9rem;
+    text-align: center;
+    padding: 1rem;
+}
+.mobile-only {
+    display: none !important;
+}
+.desktop-only {
+    display: inline-flex;
+}
+
+.app-footer {
+    padding: 1rem 1rem 1.25rem;
+    text-align: center;
+    background-color: var(--bg);
+}
+.app-footer p {
+    font-family: var(--font-default);
+    font-size: .85rem;
+    font-style: italic;
+    color: var(--footer-text);
+    margin: 0;
+}

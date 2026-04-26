@@ -1,0 +1,282 @@
+/**
+ * 01-base.css — Fundação do CSS
+ *
+ * O que tem aqui:
+ *   - Variáveis CSS (:root) com paleta de cores e tokens de design
+ *   - Definições de tema que sobrescrevem variáveis
+ *   - Reset básico e configurações de html/body
+ *   - Estilo da scrollbar
+ *
+ * Pra adicionar um tema novo:
+ *   1. Declare uma classe (ex: .theme-x) que redefine as variáveis semânticas.
+ *   2. Adicione o tema em js/config.js (id, nameKey).
+ *   3. Adicione a tradução do nome em js/i18n.js (theme_x).
+ *   4. Adicione a cor da barra do navegador em THEME_BAR_COLORS no app.js.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Capriola&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap');
+
+:root {
+    /* === Tokens de design === */
+    --radius: 12px;
+    --card-shadow: 4px 4px 0px var(--shadow-color);
+    --panel-shadow: -4px 0px 0px var(--shadow-color);
+    --font-emphasis: "Capriola", "Zen Maru Gothic", sans-serif;
+    --font-default: "Open Sans", "M PLUS Rounded 1c", sans-serif;
+    --font-scale: 1;
+    --transition-default: all 0.3s ease-in-out;
+    --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-snappy: cubic-bezier(0.4, 0, 0.2, 1);
+    --dur-fast: 180ms;
+    --dur-med:  280ms;
+    --dur-slow: 380ms;
+
+    /* === Cores primitivas (paleta) === */
+    --accent-1: #974315;
+    --accent-2: #8D957E;
+    --accent-3: #b45b2b;
+    --neutral-dark-1: #788990;
+    --neutral-dark-2: #5C4C33;
+    --neutral-dark-transparent-15: rgba(92, 76, 51, 0.15);
+    --neutral-dark-transparent-35: rgba(54, 81, 92, 0.35);
+    --neutral-dark-transparent-60: rgba(92, 76, 51, 0.6);
+    --neutral-light-1: #e3d6c4;
+    --neutral-light-2: #F0EDE4;
+    --neutral-light-transparent-15: rgba(248, 247, 245, 0.15);
+    --neutral-light-transparent-30: rgba(240, 237, 228, 0.3);
+    --neutral-light-transparent-50: rgba(240, 237, 228, 0.5);
+    --neutral-light-transparent-85: rgba(248, 247, 245, 0.85);
+
+    /* === Cores semânticas (referenciam primitivas) === */
+    --bg: var(--neutral-light-1);
+    --shadow-color: rgba(155, 143, 128, 0.5);
+    --shadow-color-landing: #0000004d;
+    --divs-border: var(--neutral-dark-transparent-15);
+
+    --navbar-bg: var(--neutral-light-2);
+    --navbar-text: var(--neutral-dark-2);
+    --navbar-accent: var(--accent-3);
+
+    --card-bg: var(--accent-2);
+    --card-text: var(--neutral-light-2);
+    --card-pill-bg: #6d7c66;
+    --card-pill-text: var(--card-text);
+    --card-copy-icon: var(--neutral-dark-2);
+    --card-copy-icon-hover: var(--neutral-light-1);
+
+    --next-button: var(--neutral-dark-1);
+    --next-button-hover: var(--accent-1);
+
+    --cat-label: var(--neutral-dark-1);
+    --cat-trigger: var(--accent-1);
+    --cat-trigger-hover: var(--accent-3);
+    --cat-bg: var(--neutral-light-2);
+    --cat-button-text: var(--neutral-dark-transparent-60);
+    --cat-button-text-hover: var(--accent-1);
+    --cat-button-text-active: var(--neutral-dark-2);
+    --cat-button-bg-hover: var(--neutral-light-transparent-85);
+    --cat-button-bg-active: var(--neutral-dark-transparent-15);
+
+    --panel-bg: var(--neutral-dark-1);
+    --panel-text: #F0EDE4;
+    --panel-title-text: #F0EDE4;
+    --panel-body-text: #F0EDE4;
+    --panel-button-bg-hover: var(--neutral-light-transparent-15);
+    --panel-button-bg-active: var(--neutral-light-transparent-30);
+
+    --config-div: var(--neutral-dark-transparent-35);
+    --config-mobile-bg: var(--neutral-light-transparent-15);
+    --config-mobile-div: var(--neutral-light-transparent-50);
+
+    --footer-text: var(--neutral-dark-1);
+
+    --lang-bg: var(--neutral-light-2);
+    --lang-button-text: var(--neutral-dark-transparent-60);
+    --lang-button-text-hover: var(--accent-1);
+    --lang-button-text-active: var(--neutral-dark-2);
+    --lang-button-bg-hover: var(--neutral-light-transparent-85);
+    --lang-button-bg-active: var(--neutral-dark-transparent-15);
+
+    --landing-bg: var(--accent-1);
+    --landing-text: var(--neutral-light-1);
+    --landing-text-hover: var(--neutral-light-2);
+    --landing-button-bg: var(--neutral-light-2);
+    --landing-button-text: var(--neutral-dark-2);
+
+    --bubble-bg: var(--accent-1);
+    --bubble-text: var(--landing-text);
+
+    --scroll-thumb: var(--neutral-dark-1);
+    --scroll-hover: var(--neutral-dark-transparent-60);
+
+    --about-nav-text: var(--neutral-dark-1);
+    --about-nav-text-hover: var(--accent-1);
+    --about-nav-text-active: var(--accent-3);
+    --about-title: var(--accent-3);
+    --about-body: var(--neutral-dark-2);
+    --about-hero-bg: var(--accent-1);
+    --about-hero-text: var(--neutral-light-2);
+    --about-hero-foot: var(--neutral-light-1);
+    --about-release-date: var(--neutral-dark-1);
+    --about-sidebar-bg: var(--neutral-light-2);
+}
+
+.theme-noite-aconchegante {
+    /* === Cores primitivas do tema noite === */
+    --night-dark:        #061021;
+    --night-deep:        #0B1A31;
+    --night-medium:      #1B2E4D;
+    --night-light:       #536689;
+    --night-bordo:       #561B1F;
+    --night-blue-gray:   #5E738A;
+    --night-coffee:      #553e30;
+    --night-mustard:     #9C6A1B;
+    --night-beige:       #9C9283;
+    --night-rose:        #AC5D5F;
+    --night-sand:        #CEB190;
+    --night-sand-transparent-10:  rgba(206, 177, 144, 0.10);
+    --night-sand-transparent-15:  rgba(206, 177, 144, 0.15);
+    --night-sand-transparent-30:  rgba(206, 177, 144, 0.30);
+
+    /* === Cores semânticas === */
+    --bg: var(--night-deep);
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --shadow-color-landing: rgba(0, 0, 0, 0.377);
+    --divs-border: var(--night-sand-transparent-15);
+
+    --navbar-bg: var(--night-dark);
+    --navbar-text: var(--night-mustard);
+    --navbar-accent: var(--night-sand);
+
+    --card-bg: var(--night-medium);
+    --card-text: var(--night-sand);
+    --card-pill-bg: var(--night-deep);
+    --card-pill-text: var(--night-rose);
+    --card-copy-icon: var(--night-light);
+    --card-copy-icon-hover: var(--night-mustard);
+
+    --next-button: var(--night-mustard);
+    --next-button-hover: var(--night-rose);
+
+    --cat-label: var(--night-blue-gray);
+    --cat-trigger: var(--night-mustard);
+    --cat-trigger-hover: var(--night-rose);
+    --cat-bg: var(--night-dark);
+    --cat-button-text: var(--night-beige);
+    --cat-button-text-hover: var(--night-mustard);
+    --cat-button-text-active: var(--night-sand);
+    --cat-button-bg-hover: var(--night-sand-transparent-10);
+    --cat-button-bg-active: var(--night-sand-transparent-15);
+
+    --panel-bg: var(--night-coffee);
+    --panel-text: var(--night-sand);
+    --panel-title-text: var(--night-sand);
+    --panel-body-text: var(--night-sand);
+    --panel-button-bg-hover: var(--night-sand-transparent-15);
+    --panel-button-bg-active: var(--night-sand-transparent-30);
+
+    --config-div: var(--night-sand-transparent-15);
+    --config-mobile-bg: var(--night-sand-transparent-15);
+    --config-mobile-div: var(--night-sand-transparent-30);
+
+    --footer-text: var(--night-blue-gray);
+
+    --lang-bg: var(--night-dark);
+    --lang-button-text: var(--night-blue-gray);
+    --lang-button-text-hover: var(--night-mustard);
+    --lang-button-text-active: var(--night-sand);
+    --lang-button-bg-hover: var(--night-sand-transparent-15);
+    --lang-button-bg-active: var(--night-sand-transparent-30);
+
+    --landing-bg: var(--night-bordo);
+    --landing-text: var(--night-sand);
+    --landing-text-hover: var(--night-rose);
+    --landing-button-bg: var(--night-rose);
+    --landing-button-text: var(--night-bordo);
+
+    --bubble-bg: var(--night-bordo);
+    --bubble-text: var(--night-sand);
+
+    --scroll-thumb: var(--night-blue-gray);
+    --scroll-hover: var(--night-mustard);
+
+    --about-nav-text: var(--night-blue-gray);
+    --about-nav-text-hover: var(--night-mustard);
+    --about-nav-text-active: var(--night-mustard);
+    --about-title: var(--night-rose);
+    --about-body: var(--night-sand);
+    --about-hero-bg: var(--night-bordo);
+    --about-hero-text: var(--night-sand);
+    --about-hero-foot: var(--night-rose);
+    --about-release-date: var(--night-blue-gray);
+    --about-sidebar-bg: var(--night-dark);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: calc(16px * var(--font-scale));
+}
+
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    max-width: 100%;
+    touch-action: manipulation;
+}
+
+body {
+    background: var(--bg);
+    color: var(--navbar-text);
+    font-size: inherit;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.4s, color 0.4s;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll-hover);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) transparent;
+}
+
+.theme-loaded body,
+.theme-loaded .app-header,
+.theme-loaded .stage,
+.theme-loaded .card,
+.theme-loaded .footer,
+.theme-loaded .about-sidebar,
+.theme-loaded .about-content,
+.theme-loaded .release-hero,
+.theme-loaded .release-entry,
+.theme-loaded .panel-bg-wrap {
+    transition: background-color var(--dur-med) var(--ease-smooth),
+                color var(--dur-med) var(--ease-smooth);
+}

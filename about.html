@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#974315"/>
+  <title>Sobre — Fica pro café!</title>
+
+  <link rel="manifest" href="./manifest.webmanifest"/>
+  <link rel="icon" href="./assets/icons/favicon.svg?v=2" type="image/svg+xml"/>
+  <link rel="shortcut icon" href="./assets/icons/favicon.svg?v=2" type="image/svg+xml"/>
+  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <meta name="apple-mobile-web-app-title" content="Fica pro Café"/>
+
+  <link rel="stylesheet" href="./styles/01-base.css"/>
+  <link rel="stylesheet" href="./styles/02-layout.css"/>
+  <link rel="stylesheet" href="./styles/03-components.css"/>
+  <link rel="stylesheet" href="./styles/04-mobile.css"/>
+
+  <script src="./js/boot.js"></script>
+</head>
+<body>
+    <header class="app-header">
+    <button class="header-left" id="backBtn" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span id="backLabel">Voltar</span></button>
+    <div class="header-right">
+      <a class="action-btn active" href="#sobre" data-tab="sobre" id="tabSobre">Sobre o App</a>
+      <a class="action-btn" href="#atualizacoes" data-tab="atualizacoes" id="tabAtualizacoes">Atualizações</a>
+      <a class="action-btn" href="#licenca" data-tab="licenca" id="tabLicenca">Licença</a>
+      <a class="action-btn" href="#feedback-tab" data-tab="feedback-tab" id="tabFeedback">Feedback</a>
+      <div class="language-picker js-language-picker" data-trigger-class="li4-btn li4-btn--subtle"><form class="language-picker__form"><label for="langSelectAbout">Idioma</label><select id="langSelectAbout"><option value="pt" selected>Pt-br</option><option value="en">Eng</option><!-- <option value="jp">Jpn</option> --></select></form></div>
+      <button id="hamburgerBtn" class="hamburger-btn mobile-only" aria-label="Menu" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </header>
+
+  <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu-header">
+      <button class="header-left" id="mobileMenuBack" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-mm="back">Voltar</span></button>
+      <button id="mobileMenuClose" class="mobile-menu-close" aria-label="Fechar" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <nav class="mobile-menu-list">
+      <a href="#sobre" data-mm-tab="sobre" data-mm="tabSobre">Sobre o App</a>
+      <a href="#licenca" data-mm-tab="licenca" data-mm="tabLicenca">Licença</a>
+      <a href="#atualizacoes" data-mm-tab="atualizacoes" data-mm="tabAtualizacoes">Atualizações</a>
+      <a href="#feedback-tab" data-mm-tab="feedback-tab" data-mm="tabFeedback">Feedback</a>
+    </nav>
+  </div>
+  
+  <div class="about-layout">
+    <nav id="aboutSidebar" class="about-sidebar"></nav>
+    <main class="about-content">
+      <div id="tab-sobre" class="tab-page active">
+        <section id="sec-sobre-app" class="about-section"><h2 id="h-sobre-app"></h2><div id="c-sobre-app"></div></section>
+        <section id="sec-sobre-perguntas" class="about-section"><h2 id="h-sobre-perguntas"></h2><div id="c-sobre-perguntas"></div></section>
+        <section id="sec-sobre-criadora" class="about-section"><h2 id="h-sobre-criadora"></h2><div id="c-sobre-criadora"></div></section>
+      </div>
+      <div id="tab-atualizacoes" class="tab-page"><h1 class="mobile-title mobile-only" id="mobileTitleAtualizacoes">Notas de lançamento</h1><div id="releaseHero" class="release-hero"></div><div id="releaseList"></div></div>
+      <div id="tab-licenca" class="tab-page license-content"><h2 id="h-licenca"></h2><div id="c-licenca"></div></div>
+      <div id="tab-feedback-tab" class="tab-page"><h2 id="h-feedback">Feedback</h2><p id="feedbackText"></p><p><a href="#" target="_blank" rel="noopener" style="color:var(--navbar-accent);font-weight:600" id="feedbackLinkText"></a></p></div>
+    </main>
+  </div>
+  <footer class="about-footer"><p id="aboutFooterText"></p></footer>
+
+  <script type="module" src="./js/about.js"></script>
+</body>
+</html>

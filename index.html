@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#974315"/>
+  <title>Fica pro café!</title>
+
+  <link rel="manifest" href="./manifest.webmanifest"/>
+  <link rel="icon" href="./assets/icons/favicon.svg?v=2" type="image/svg+xml"/>
+  <link rel="shortcut icon" href="./assets/icons/favicon.svg?v=2" type="image/svg+xml"/>
+  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <meta name="apple-mobile-web-app-title" content="Fica pro Café"/>
+
+  <link rel="stylesheet" href="./styles/01-base.css"/>
+  <link rel="stylesheet" href="./styles/02-layout.css"/>
+  <link rel="stylesheet" href="./styles/03-components.css"/>
+  <link rel="stylesheet" href="./styles/04-mobile.css"/>
+  <script src="./js/boot.js"></script>
+</head>
+<body>
+  <div id="landing" class="landing">
+    <nav class="landing-nav">
+      <a href="./about.html" data-i18n="about">Sobre</a>
+      <a id="landingFeedback" href="#" target="_blank" rel="noopener">Feedback</a>
+      <div class="language-picker js-language-picker" data-trigger-class="li4-btn li4-btn--subtle" data-context="landing">
+        <form class="language-picker__form"><label for="langSelectLanding">Idioma</label><select id="langSelectLanding" name="langSelectLanding"><option lang="pt" value="pt" selected>Pt-br</option><option lang="en" value="en">Eng</option><!-- <option lang="jp" value="jp">Jpn</option> --></select></form>
+      </div>
+    </nav>
+    <h1 class="landing-title">Fica pro café!</h1>
+    <button id="startBtn" class="landing-cta" data-i18n="startBtn">Vamos conversar</button>
+    <nav class="landing-footer-nav mobile-only">
+      <a id="landingFeedbackMobile" href="#" target="_blank" rel="noopener" data-i18n="feedback">Feedback</a>
+      <a href="./about.html" data-i18n="about">Sobre</a>
+    </nav>
+  </div>
+
+  <header class="app-header">
+    <div class="header-left">
+      <button id="sairBtn" class="sair-btn desktop-only"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg><span data-i18n="sair">Sair</span></button>
+      <button id="configBtnMobile" class="config-btn-mobile mobile-only" aria-label="Configurações" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+    </div>
+    <div class="header-right">
+      <button id="configBtn" class="action-btn desktop-only"><span data-i18n="config">Configurações</span><svg class="navIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <button id="aboutBtn" class="action-btn desktop-only"><span data-i18n="about">Sobre</span><svg class="navIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <a id="feedbackLink" class="action-btn desktop-only" href="#" target="_blank" rel="noopener" data-i18n="feedback">Feedback</a>
+      <div class="language-picker js-language-picker" data-trigger-class="li4-btn li4-btn--subtle">
+        <form class="language-picker__form"><label for="langSelect">Idioma</label><select id="langSelect" name="langSelect"><option lang="pt" value="pt" selected>Pt-br</option><option lang="en" value="en">Eng</option><!-- <option lang="jp" value="jp">Jpn</option> --></select></form>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <div class="stage">
+      <div id="catTriggerWrap" class="cat-trigger-wrap">
+        <span class="cat-label" data-i18n="categoriaLabel">Categoria</span>
+        <button id="catTrigger" class="cat-trigger">
+          <span id="catName">Todas</span>
+          <svg class="cat-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <article id="card" class="card" role="article" aria-live="polite">
+        <button id="copyBtn" class="copy-btn desktop-only" title="Copiar pergunta">
+          <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span class="copy-label" data-i18n="copied">Copiado!</span>
+        </button>
+        <button id="shareBtn" class="share-btn mobile-only" title="Compartilhar pergunta" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+        <div class="card-number"><span id="questionPill" class="q-pill"></span></div>
+        <div id="questionText" class="question">Bora lá?</div>
+      </article>
+
+      <div id="catOverlay" class="cat-overlay">
+        <div id="catOverlayList" class="cat-overlay__list"></div>
+      </div>
+
+      <button id="nextBtn" class="next-btn">
+        <span class="next-label mobile-only" data-i18n="nextLabel">Próximo</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <p class="drag-hint mobile-only" data-i18n="dragTip">Arraste o cartão para o lado para ver outra pergunta</p>
+    <div id="dragBubble" class="drag-bubble mobile-only" aria-hidden="true" data-i18n="dragTipFirst">Psiu! Arraste o cartão para trocar de pergunta 👉</div>
+  </main>
+
+  <footer class="app-footer"><p data-i18n="footer">Salve também como web app</p></footer>
+
+  <aside id="configPanel" class="panel" aria-hidden="true">
+    <header class="panel-header">
+      <button id="backConfigPanel" class="panel-back-mobile mobile-only" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="retornar">Retornar</span></button>
+      <button id="closeConfigPanel" class="desktop-only" aria-label="Fechar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <h2 class="desktop-only" data-i18n="config">Configurações</h2>
+    </header>
+    <details class="panel-section is-collapsible">
+      <summary class="panel-section-header"><h3 data-i18n="theme">Tema</h3><span id="currentThemeName">Casinha</span><svg class="collapse-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></summary>
+      <div class="panel-section-body"><div id="themeList"></div></div>
+    </details>
+    <details class="panel-section is-collapsible">
+      <summary class="panel-section-header"><h3 data-i18n="fontSize">Tamanho da fonte</h3><span id="currentFontSize">Médio</span><svg class="collapse-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></summary>
+      <div class="panel-section-body"><div id="fontSizeList"></div></div>
+    </details>
+    <details class="panel-section is-collapsible mobile-only">
+      <summary class="panel-section-header"><h3 data-i18n="language">Idioma</h3><span id="currentLanguageName" class="current-language"><span class="language-picker__flag language-picker__flag--pt"></span>Pt-br</span><svg class="collapse-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></summary>
+      <div class="panel-section-body"><div id="languageList"></div></div>
+    </details>
+    <div class="panel-mobile-actions mobile-only">
+      <button id="sairBtnMobile" class="panel-mobile-link"><span data-i18n="sair">Sair</span></button>
+      <button id="aboutBtnMobile" class="panel-mobile-link"><span data-i18n="about">Sobre</span></button>
+      <a id="feedbackLinkMobile" class="panel-mobile-link" href="#" target="_blank" rel="noopener" data-i18n="feedback">Feedback</a>
+    </div>
+  </aside>
+
+  <aside id="aboutPanel" class="panel" aria-hidden="true">
+    <header class="panel-header">
+      <button id="backAboutPanel" class="panel-back-mobile mobile-only" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="retornar">Retornar</span></button>
+      <button id="closeAboutPanel" class="desktop-only" aria-label="Fechar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <h2 class="desktop-only" data-i18n="about">Sobre</h2>
+    </header>
+    <div class="panel-section">
+      <ul class="meta">
+        <li><strong data-i18n="appName">Nome do app</strong><span>Fica pro Café</span></li>
+        <li><strong data-i18n="version">Versão</strong><a href="./about.html#atualizacoes"><span id="appVersionLabel">v1.0.0</span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></li>
+        <li><strong data-i18n="licence">Licença</strong><a href="./about.html#licenca">MIT <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></li>
+        <li><strong data-i18n="more">Mais sobre</strong><a href="./about.html#sobre">Sobre <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></li>
+        <li><strong data-i18n="credits">Créditos</strong><span>Daniela Miura Tamiya</span></li>
+      </ul>
+    </div>
+    <div class="panel-mobile-actions mobile-only">
+      <a id="feedbackLinkAboutMobile" class="panel-mobile-link" href="#" target="_blank" rel="noopener" data-i18n="feedback">Feedback</a>
+    </div>
+  </aside>
+
+  <script type="module" src="./js/app.js"></script>
+  
+  <script src="./js/ui-mobile.js" defer></script>
+</body>
+</html>
